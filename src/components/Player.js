@@ -5,6 +5,7 @@ import {
   faPlay,
   faAngleLeft,
   faAngleRight,
+  faPause,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Player = ({ currentSong, setIsPlaying, isPlaying }) => {
@@ -72,7 +73,7 @@ const Player = ({ currentSong, setIsPlaying, isPlaying }) => {
           }}
           size="2x"
           className="play"
-          icon={faPlay}
+          icon={isPlaying ? faPause : faPlay}
         ></FontAwesomeIcon>
 
         <FontAwesomeIcon
