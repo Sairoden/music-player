@@ -1,3 +1,5 @@
+import React, { useEffect } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
@@ -15,7 +17,18 @@ const Player = ({
   setSongInfo,
   songs,
   setCurrentSong,
+  setSongs,
 }) => {
+  // Use Effect
+  useEffect(() => {
+    const newSong = songs.map(song => {
+      if (song.id === currentSong.id) return { ...song, active: true };
+      else return { ...song, active: false };
+    });
+
+    setSongs(newSong);
+  }, [currentSong]);
+
   // Event Handlers
   const playSongHandler = () => {
     if (isPlaying) audioRef.current.pause();
