@@ -2,6 +2,7 @@
 @import "player";
 @import "library";
 @import "nav";
+@import "queries";
 
 * {
   box-sizing: border-box;
@@ -39,4 +40,12 @@ h3,
 h4 {
   font-weight: 400;
   color: rgb(100, 100, 100);
+}
+
+.App {
+  transition: all 0.5s ease;
+}
+
+.library-active {
+  margin-left: 30%;
 }
