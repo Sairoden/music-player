@@ -1,5 +1,3 @@
-import React, { useEffect } from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
@@ -19,15 +17,14 @@ const Player = ({
   setCurrentSong,
   setSongs,
 }) => {
-  // Use Effect
-  useEffect(() => {
+  const activeLibrayHandler = nextPrev => {
     const newSong = songs.map(song => {
-      if (song.id === currentSong.id) return { ...song, active: true };
+      if (song.id === nextPrev.id) return { ...song, active: true };
       else return { ...song, active: false };
     });
 
     setSongs(newSong);
-  }, [currentSong]);
+  };
 
   // Event Handlers
   const playSongHandler = () => {
@@ -56,15 +53,21 @@ const Player = ({
 
     if (direction === "skip-forward") {
       await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+      activeLibrayHandler(songs[(currentIndex + 1) % songs.length]);
     }
 
     if (direction === "skip-back") {
       if ((currentIndex - 1) % songs.length === -1) {
+        await setCurrentSong(songs[songs.length - 1]);
+        activeLibrayHandler(songs[songs.length - 1]);
+
         if (isPlaying) audioRef.current.play();
-        return await setCurrentSong(songs[songs.length - 1]);
+
+        return;
       }
 
       await setCurrentSong(songs[(currentIndex - 1) % songs.length]);
+      activeLibrayHandler(songs[(currentIndex - 1) % songs.length]);
     }
 
     if (isPlaying) audioRef.current.play();
